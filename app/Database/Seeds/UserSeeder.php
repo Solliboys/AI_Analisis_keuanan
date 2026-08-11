@@ -11,22 +11,15 @@ class UserSeeder extends Seeder
         $data = [
             [
                 'role_id' => 1,
-                'nama' => 'Bapak Super Admin',
-                'email' => 'superadmin@gmail.com',
+                'nama' => 'Bapak Reviewer',
+                'email' => 'reviewer@bank.com',
                 'password' => password_hash('123456', PASSWORD_DEFAULT),
                 'status_aktif' => 1,
             ],
             [
                 'role_id' => 2,
-                'nama' => 'Mas Admin Kece',
-                'email' => 'admin@gmail.com',
-                'password' => password_hash('123456', PASSWORD_DEFAULT),
-                'status_aktif' => 1,
-            ],
-            [
-                'role_id' => 3,
-                'nama' => 'Budi Sang Nasabah',
-                'email' => 'nasabah@gmail.com',
+                'nama' => 'Mas Pengusul (Marketing)',
+                'email' => 'pengusul@bank.com',
                 'password' => password_hash('123456', PASSWORD_DEFAULT),
                 'status_aktif' => 1,
             ]

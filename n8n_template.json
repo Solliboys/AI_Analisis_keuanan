@@ -1,0 +1,127 @@
+{
+    "name": "AI Analisis Keuangan (DSCR & Fraud)",
+    "nodes": [
+        {
+            "parameters": {
+                "httpMethod": "POST",
+                "path": "ai-analisis-kredit",
+                "responseMode": "lastNode",
+                "options": {}
+            },
+            "id": "bbddb175-6f6a-4952-b88d-e6b7f32997da",
+            "name": "Webhook (Dari CI4)",
+            "type": "n8n-nodes-base.webhook",
+            "typeVersion": 1.1,
+            "position": [
+                220,
+                340
+            ],
+            "webhookId": "ai-analisis-kredit"
+        },
+        {
+            "parameters": {
+                "assignments": {
+                    "assignments": [
+                        {
+                            "id": "02ac4a3b-2525-4c07-afb9-b80c5e7ae2a0",
+                            "name": "prompt_ai",
+                            "value": "={{ 'Kamu adalah sebuah Sistem AI Validasi & Analyst di sebuah Bank.\\nTugas utamamu ada 2: Memvalidasi Kewajaran Data secara otomatis, dan Menghitung DSCR & mendeteksi Fraud.\\n\\nPeriksa data pengajuan ini:\\n' + JSON.stringify($json.body, null, 2) + '\\n\\nINSTRUKSI:\\n1. VALIDASI DATA OTOMATIS: periksa apakah ada isian form yang tidak masuk akal atau kosong pada nilai esensial. Jika tidak logis, set status_validasi ke \"Tidak Valid\" dan jelaskan alasannya di catatan_validasi_sistem.\\n2. HITUNG DSCR (Debt Service Coverage Ratio): (Pendapatan Bersih - Pengeluaran Rutin) / (Angsuran Kredit Berjalan + Estimasi Angsuran Baru). Tulis dalam 2 desimal.\\n3. FRAUD DETECTION: Cek kewajaran rasio nominal pengeluaran hidup dibandingkan dengan pendapatan. Apakah rasional?\\n\\nKEMBALIKAN HANYA FORMAT JSON DI BAWAH INI SEBAGAI OUTPUT (Tanpa Backtick Markdown / tanpa bungkus apapun):\\n{\\n  \"status_validasi\": \"Valid\",\\n  \"catatan_validasi_sistem\": \"Kosongkan jika Valid, tulis alasan jika Tidak Valid\",\\n  \"dscr_score\": 1.6,\\n  \"status_kelayakan\": \"Layak/Tidak Layak\",\\n  \"indikasi_fraud\": true/false,\\n  \"fraud_warning_notes\": \"Penjelasan anomali\",\\n  \"resume_analisis\": \"Tulis 1 paragraf evaluasi profil risiko nasabah.\\\"\\n}' }}",
+                            "type": "string"
+                        }
+                    ]
+                },
+                "options": {}
+            },
+            "id": "d0e1fe6f-cd19-4591-9e73-b3c971ab7cba",
+            "name": "Rangkai Prompt",
+            "type": "n8n-nodes-base.set",
+            "typeVersion": 3.4,
+            "position": [
+                460,
+                340
+            ]
+        },
+        {
+            "parameters": {
+                "resource": "text",
+                "operation": "generate",
+                "model": "gemini-1.5-flash",
+                "prompt": "={{ $json.prompt_ai }}",
+                "options": {
+                    "temperature": 0.2
+                }
+            },
+            "id": "89fbbca5-2ed3-4ff3-9d06-0eed4b25d2e2",
+            "name": "Google Gemini (Analisa)",
+            "type": "n8n-nodes-base.googleGemini",
+            "typeVersion": 1,
+            "position": [
+                700,
+                340
+            ]
+        },
+        {
+            "parameters": {
+                "options": {
+                    "responseHeaders": {
+                        "entries": [
+                            {
+                                "name": "Content-Type",
+                                "value": "application/json"
+                            }
+                        ]
+                    }
+                }
+            },
+            "id": "f5fbfdd5-961d-44a6-bcd8-fe0f4989dbf5",
+            "name": "Kembalikan ke CI4",
+            "type": "n8n-nodes-base.respondToWebhook",
+            "typeVersion": 1.1,
+            "position": [
+                940,
+                340
+            ]
+        }
+    ],
+    "pinData": {},
+    "connections": {
+        "Webhook (Dari CI4)": {
+            "main": [
+                [
+                    {
+                        "node": "Rangkai Prompt",
+                        "type": "main",
+                        "index": 0
+                    }
+                ]
+            ]
+        },
+        "Rangkai Prompt": {
+            "main": [
+                [
+                    {
+                        "node": "Google Gemini (Analisa)",
+                        "type": "main",
+                        "index": 0
+                    }
+                ]
+            ]
+        },
+        "Google Gemini (Analisa)": {
+            "main": [
+                [
+                    {
+                        "node": "Kembalikan ke CI4",
+                        "type": "main",
+                        "index": 0
+                    }
+                ]
+            ]
+        }
+    },
+    "active": false,
+    "settings": {
+        "executionOrder": "v1"
+    },
+    "versionId": "bb2353e8-636c-4b53-a55e-0490e54d6fc4"
+}
