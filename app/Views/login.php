@@ -244,7 +244,7 @@
 
                     <div class="feature-text">
                         <b>Input pengajuan</b>
-                        <span>Mudah & cepat</span>
+                        <span>Mudah &amp; cepat</span>
                     </div>
 
                 </div>
@@ -274,7 +274,7 @@
 
                     <div class="feature-text">
                         <b>Skoring otomatis</b>
-                        <span>Akurat & real-time</span>
+                        <span>Akurat &amp; real-time</span>
                     </div>
 
                 </div>
@@ -303,7 +303,7 @@
 
                     <div class="feature-text">
                         <b>Deteksi fraud</b>
-                        <span>Aman & terpercaya</span>
+                        <span>Aman &amp; terpercaya</span>
                     </div>
 
                 </div>
@@ -330,6 +330,21 @@
                 </p>
 
 
+                <!-- FLASH MESSAGE -->
+                <?php if(session()->getFlashdata('error')): ?>
+                    <div style="background-color: #f8d7da; color: #842029; padding: 10px; border-radius: 8px; margin-bottom: 20px; font-size: 13px;">
+                        <?= session()->getFlashdata('error') ?>
+                    </div>
+                <?php endif; ?>
+
+                <?php if(session()->getFlashdata('success')): ?>
+                    <div style="background-color: #d1e7dd; color: #0f5132; padding: 10px; border-radius: 8px; margin-bottom: 20px; font-size: 13px;">
+                        <?= session()->getFlashdata('success') ?>
+                    </div>
+                <?php endif; ?>
+
+                <form id="loginForm" action="<?= base_url('process-login') ?>" method="post">
+
                 <!-- EMAIL -->
 
                 <div class="field">
@@ -341,7 +356,9 @@
                     <input
                         type="email"
                         id="email"
+                        name="email"
                         placeholder="Enter your email"
+                        required
                     >
 
                 </div>
@@ -360,7 +377,9 @@
                         <input
                             type="password"
                             id="password"
+                            name="password"
                             placeholder="Enter password"
+                            required
                         >
 
                         <!-- Eye -->
@@ -391,18 +410,24 @@
                 </div>
 
 
-                <!-- REMEMBER ME -->
+                <!-- REMEMBER ME & FORGOT PASSWORD -->
 
-                <div class="row">
+                <div class="row row-between">
 
-                    <input
-                        type="checkbox"
-                        id="remember"
-                    >
+                    <div class="row-left">
+                        <input
+                            type="checkbox"
+                            id="remember"
+                        >
 
-                    <span>
-                        Remember me
-                    </span>
+                        <span>
+                            Remember me
+                        </span>
+                    </div>
+
+                    <a href="<?= base_url('forgot-password') ?>" class="forgot-link">
+                        Forgot password?
+                    </a>
 
                 </div>
 
@@ -411,37 +436,12 @@
 
                 <button
                     class="btn-primary"
-                    type="button"
+                    type="submit"
                 >
                     Sign in
                 </button>
 
-
-                <!-- DIVIDER -->
-
-                <div class="divider">
-
-                    <div class="line"></div>
-
-                    <span>
-                        or
-                    </span>
-
-                    <div class="line"></div>
-
-                </div>
-
-                <!-- SIGN UP -->
-
-                <div class="signup">
-
-                    Don't have an account?
-
-                    <b id="signupButton">
-                        Sign up
-                    </b>
-
-                </div>
+                </form>
 
             </div>
 

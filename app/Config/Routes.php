@@ -7,14 +7,24 @@ use CodeIgniter\Router\RouteCollection;
 // Halaman utama
 $routes->get('/', 'Auth::login');
 
-// Home
+// Proses Login & Logout
+$routes->post('process-login', 'Auth::processLogin');
+$routes->get('logout', 'Auth::logout');
+
+// Home (Dashboard admin/superadmin dummy)
 $routes->get('home', 'Home::index');
+$routes->get('admin', 'Home::admin');
+$routes->get('superadmin', 'Home::superadmin');
 
-// Test database
-$routes->get('test-db', 'Test::index');
-
-// Register
-$routes->get('register', 'Auth::register');
+// Forgot Password
+$routes->group('forgot-password', function ($routes) {
+    $routes->get('/', 'Auth::forgotPassword');
+    $routes->post('send-otp', 'Auth::sendOtp');
+    $routes->get('verify-otp', 'Auth::verifyOtp');
+    $routes->post('verify-otp', 'Auth::verifyOtp');
+    $routes->get('reset', 'Auth::resetPassword');
+    $routes->post('reset', 'Auth::resetPassword');
+});
 
 // Pengajuan
 $routes->group('pengajuan', function ($routes) {

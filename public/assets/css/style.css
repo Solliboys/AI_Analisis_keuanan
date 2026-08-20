@@ -559,7 +559,7 @@ body {
 }
 
 /* =========================================================
-   SIGN UP
+   SIGN UP / FORGOT
 ========================================================= */
 
 .signup {
@@ -585,6 +585,326 @@ body {
 }
 
 /* =========================================================
+   FORGOT PASSWORD LINK (on login page)
+========================================================= */
+
+.row-between {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 22px;
+}
+
+.row-left {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.row-left input[type="checkbox"] {
+    width: 14px;
+    height: 14px;
+    cursor: pointer;
+    accent-color: var(--orange);
+}
+
+.row-left span {
+    font-size: 12px;
+    color: rgba(255, 255, 255, 0.85);
+}
+
+.forgot-link {
+    font-size: 12px;
+    color: var(--orange);
+    text-decoration: none;
+    font-weight: 600;
+    transition: 0.2s ease;
+}
+
+.forgot-link:hover {
+    color: #fff;
+    text-decoration: underline;
+}
+
+/* =========================================================
+   BACK LINK
+========================================================= */
+
+.back-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+
+    font-size: 12.5px;
+    color: rgba(255, 255, 255, 0.7);
+    text-decoration: none;
+
+    margin-bottom: 20px;
+
+    transition: 0.2s ease;
+}
+
+.back-link:hover {
+    color: #fff;
+}
+
+.back-link svg {
+    width: 16px;
+    height: 16px;
+}
+
+/* =========================================================
+   OTP INPUT
+========================================================= */
+
+.otp-container {
+    display: flex;
+    gap: 10px;
+    justify-content: center;
+    margin-bottom: 20px;
+}
+
+.otp-input {
+    width: 48px;
+    height: 56px;
+
+    border-radius: 12px;
+    border: 2px solid rgba(255, 255, 255, 0.2);
+
+    background: rgba(255, 255, 255, 0.08);
+
+    color: #fff;
+    font-size: 22px;
+    font-weight: 700;
+    text-align: center;
+
+    outline: none;
+
+    transition: 0.25s ease;
+    caret-color: var(--orange);
+}
+
+.otp-input:focus {
+    border-color: var(--orange);
+    background: rgba(255, 255, 255, 0.12);
+    box-shadow: 0 0 0 4px rgba(245, 133, 31, 0.15);
+    transform: translateY(-2px);
+}
+
+.otp-input.filled {
+    border-color: rgba(255, 255, 255, 0.5);
+    background: rgba(255, 255, 255, 0.15);
+}
+
+.otp-input.error {
+    border-color: #ef4444;
+    animation: shake 0.4s ease;
+}
+
+@keyframes shake {
+    0%, 100% { transform: translateX(0); }
+    25% { transform: translateX(-6px); }
+    50% { transform: translateX(6px); }
+    75% { transform: translateX(-4px); }
+}
+
+/* =========================================================
+   OTP TIMER
+========================================================= */
+
+.otp-timer {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+
+    margin-bottom: 20px;
+
+    font-size: 12px;
+    color: rgba(255, 255, 255, 0.6);
+}
+
+.otp-timer strong {
+    color: var(--orange);
+    font-weight: 700;
+}
+
+/* =========================================================
+   RESEND SECTION
+========================================================= */
+
+.resend-section {
+    text-align: center;
+    margin-top: 18px;
+
+    font-size: 12.5px;
+    color: rgba(255, 255, 255, 0.65);
+}
+
+.resend-btn {
+    background: none;
+    border: none;
+    color: var(--orange);
+    font-weight: 700;
+    font-size: 12.5px;
+    cursor: pointer;
+    transition: 0.2s ease;
+    padding: 2px 4px;
+}
+
+.resend-btn:hover:not(:disabled) {
+    color: #fff;
+    text-decoration: underline;
+}
+
+.resend-btn:disabled {
+    color: rgba(255, 255, 255, 0.3);
+    cursor: not-allowed;
+}
+
+/* =========================================================
+   PASSWORD STRENGTH
+========================================================= */
+
+.pw-strength {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 16px;
+}
+
+.pw-strength-bar {
+    flex: 1;
+    height: 4px;
+    border-radius: 4px;
+    background: rgba(255, 255, 255, 0.15);
+    overflow: hidden;
+}
+
+.pw-strength-fill {
+    height: 100%;
+    border-radius: 4px;
+    width: 0%;
+    transition: width 0.3s ease, background 0.3s ease;
+}
+
+.pw-strength-label {
+    font-size: 11px;
+    font-weight: 600;
+    min-width: 50px;
+    text-align: right;
+}
+
+/* =========================================================
+   PASSWORD MATCH
+========================================================= */
+
+.pw-match {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    margin-bottom: 16px;
+    font-size: 12px;
+}
+
+.pw-match.match {
+    color: #22c55e;
+}
+
+.pw-match.mismatch {
+    color: #ef4444;
+}
+
+/* =========================================================
+   STEPS INDICATOR
+========================================================= */
+
+.steps-indicator {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0;
+    margin-top: auto;
+    padding-top: 20px;
+}
+
+.step-dot {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background: #D6E1FA;
+    transition: 0.3s ease;
+    position: relative;
+}
+
+.step-dot.active {
+    background: var(--blue);
+    box-shadow: 0 0 0 4px rgba(30, 79, 214, 0.2);
+}
+
+.step-dot.completed {
+    background: var(--orange);
+}
+
+.step-line {
+    width: 40px;
+    height: 2px;
+    background: #D6E1FA;
+    transition: 0.3s ease;
+}
+
+.step-line.completed {
+    background: var(--orange);
+}
+
+/* =========================================================
+   INFO BOX
+========================================================= */
+
+.info-box {
+    display: flex;
+    align-items: flex-start;
+    gap: 8px;
+
+    margin-top: 18px;
+    padding: 12px 14px;
+
+    background: rgba(255, 255, 255, 0.06);
+    border-radius: 10px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.info-box svg {
+    flex: none;
+    margin-top: 1px;
+}
+
+.info-box span {
+    font-size: 11.5px;
+    color: rgba(255, 255, 255, 0.6);
+    line-height: 1.5;
+}
+
+/* =========================================================
+   SPINNER
+========================================================= */
+
+.spinner {
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    to { transform: rotate(360deg); }
+}
+
+.btn-primary .btn-loading {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+}
+
+/* =========================================================
    RESPONSIVE
 ========================================================= */
 
@@ -604,6 +924,12 @@ body {
         padding: 40px 30px;
 
         min-height: 560px;
+    }
+
+    .otp-input {
+        width: 42px;
+        height: 50px;
+        font-size: 20px;
     }
 }
 
@@ -627,5 +953,16 @@ body {
 
     .right p.sub {
         font-size: 12px;
+    }
+
+    .otp-container {
+        gap: 6px;
+    }
+
+    .otp-input {
+        width: 38px;
+        height: 46px;
+        font-size: 18px;
+        border-radius: 10px;
     }
 }
